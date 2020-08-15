@@ -16,25 +16,28 @@ var (
 	isUUIDv1       bool = false
 	isUUIDv4       bool = false
 	isUppercase    bool = false
+	num            int  = 1
 )
 
 func init() {
 	pflag.BoolVarP(&isULIDFromUUID, "from-ulid", "", false, "generate UUID from ULID")
 	pflag.BoolVarP(&isUUIDv1, "uuidv1", "", false, "generate UUID v1")
-	pflag.BoolVarP(&isUUIDv4, "uuidv4", "", false, "generate UUID v4")
+	pflag.BoolVarP(&isUUIDv4, "uuidv4", "", false, "generate UUID v4 (default)")
 	pflag.BoolVarP(&isUppercase, "uppercase", "u", false, "output uppercase")
+	pflag.IntVarP(&num, "number", "n", 1, "number of UUIDs to generate")
 }
 
 func main() {
 	pflag.Parse()
 
-	if isULIDFromUUID {
-		fmt.Printf("%s\n", newUUIDFromULID(isUppercase))
-		return
-	} else if isUUIDv1 {
-		fmt.Printf("%s\n", uuidv1(isUppercase))
-	} else {
-		fmt.Printf("%s\n", uuidv4(isUppercase))
+	for i := 0; i < num; i++ {
+		if isULIDFromUUID {
+			fmt.Printf("%s\n", newUUIDFromULID(isUppercase))
+		} else if isUUIDv1 {
+			fmt.Printf("%s\n", uuidv1(isUppercase))
+		} else {
+			fmt.Printf("%s\n", uuidv4(isUppercase))
+		}
 	}
 
 	return

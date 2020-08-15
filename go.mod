@@ -1,4 +1,4 @@
-module code.corp.qavar.com/dev/go-uuid
+module github.com/eugeneching/go-uuid
 
 go 1.14
 
